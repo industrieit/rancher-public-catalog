@@ -1,0 +1,5 @@
+name: echobot
+description: |
+  A simple Slack bot written in Python
+version: v0.0.1
+category: Slack

@@ -1,0 +1,10 @@
+echobot:
+  environment:
+    TOKEN: ${TOKEN}
+  log_driver: ''
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  log_opt: {}
+  image: industrieit/echobot
+  stdin_open: true
