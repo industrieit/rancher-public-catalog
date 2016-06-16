@@ -1,0 +1,18 @@
+.catalog:
+  name: "echobot"
+  version: "v0.0.1"
+  description: "A simple Slack bot written in Python"
+  questions:
+    - variable: "TOKEN"
+      label: "Slack Bot Token"
+      description: "The Slack bot token for echobot"
+      type: "string"
+      required: true
+    - variable: "FAV_COLOUR"
+      label: "Fav colour"
+      description: "Your favourite colour"
+      type: "string"
+      required: true
+
+echobot:
+  scale: 1
