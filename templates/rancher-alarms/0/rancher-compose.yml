@@ -1,0 +1,55 @@
+.catalog:
+  name: "rancher-alarms"
+  version: "v0.0.1"
+  description: "Send notifications when something goes wrong in rancher"
+  questions:
+    - variable: "RANCHER_ADDRESS"
+      label: "Rancher URL"
+      description: "Rancher server address"
+      type: "string"
+      required: true
+    - variable: "RANCHER_ACCESS_KEY"
+      label: "Rancher Access Key"
+      description: "Rancher Access Key for the environment to be monitored"
+      type: "string"
+      required: true
+    - variable: "RANCHER_SECRET_KEY"
+      label: "Rancher Secret Key"
+      description: "Rancher Secret Key for the environment to be monitored"
+      type: "string"
+      required: true
+    - variable: "RANCHER_ENV_ID"
+      label: "Rancher Environment ID"
+      description: "Rancher Environment ID"
+      type: "string"
+      required: true
+      - variable: "ALARM_EMAIL_USER"
+      label: "SMTP user account"
+      description: "SMTP user account"
+      type: "string"
+      required: true
+      - variable: "ALARM_EMAIL_PASS"
+      label: "SMTP password"
+      description: "SMTP password"
+      type: "string"
+      required: true
+      - variable: "ALARM_EMAIL_SMTP_HOST"
+      label: "SMTP host"
+      description: "SMTP host"
+      type: "string"
+      required: true
+      - variable: "ALARM_EMAIL_SMTP_PORT"
+      label: "SMTP server port"
+      description: ""
+      type: "string"
+      required: true
+      - variable: "ALARM_EMAIL_FROM"
+      label: "Email Sender"
+      description: "Alarming emails sender"
+      type: "string"
+      required: true
+      - variable: "ALARM_EMAIL_ADDRESSES"
+      label: "Email Receivers"
+      description: "People who will receive alarming emails"
+      type: "string"
+      required: true

@@ -1,0 +1,5 @@
+name: rancher-alarms
+description: |
+  Send notifications when something goes wrong in rancher
+version: v0.0.1
+category: Monitor
