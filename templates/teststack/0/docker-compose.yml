@@ -1,0 +1,16 @@
+nginxlb:
+  ports:
+  - 80:80
+  labels:
+    io.rancher.scheduler.affinity:container_label: io.rancher.stack_service.name=nginx
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - nginx:nginx
+  stdin_open: true
+nginx:
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: registry.nabtrade.industrieit.com/demosprint0
+  stdin_open: true

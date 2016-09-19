@@ -1,0 +1,48 @@
+registrylb:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  default_cert: registry
+  health_check:
+    port: 80
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+registry:
+  scale: 1
+.catalog:
+  name: "docker registry"
+  version: "v.0.0.1"
+  description: "It spins up a docker registry for containers"
+  questions:
+    - variable: "RANCHER_HOST_LABEL_KEY"
+      label: "Host Label Key"
+      description: "Rancher host label key used to deploy the container eg:tier"
+      type: "string"
+      required: true
+    - variable: "RANCHER_HOST_LABEL_VALUE"
+      label: "Host Label Value"
+      description: "Rancher host label value used to deploy the container eg:1"
+      type: "string"
+      required: true
+    - variable: "AWS_ACCESS_KEY"
+      label: "Access Key"
+      description: "AWS User Access Key with S3 bucket access"
+      type: "string"
+      required: true
+    - variable: "AWS_SECRET_KEY"
+      label: "Secret Key"
+      description: "AWS User Secret Key with S3 bucket access"
+      type: "string"
+      required: true
+    - variable: "AWS_REGION"
+      label: "AWS Bucket Region"
+      description: "AWS S3 Bucket Region"
+      type: "string"
+      required: true
+    - variable: "AWS_S3_BUCKET"
+      label: "S3 Bucket name"
+      description: "AWS S3 bucket name"
+      type: "string"
+      required: true

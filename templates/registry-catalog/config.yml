@@ -1,0 +1,5 @@
+name: registry-stack
+description: |
+  Creates a docker registry stack for AWS using the S3 storage driver for object storage
+version: v0.0.1
+category: test

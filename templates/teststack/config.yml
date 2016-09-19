@@ -1,0 +1,5 @@
+name: test-stack
+description: |
+  It creates a nginx server and a load balancer
+version: v0.0.1
+category: test

@@ -1,0 +1,24 @@
+registrylb:
+  ports:
+  - 443:5000
+  labels:
+    io.rancher.scheduler.affinity:container_label: io.rancher.stack_service.name=registry
+    io.rancher.loadbalancer.ssl.ports: '443'
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - registry:registry
+  stdin_open: true
+registry:
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:host_label: ${RANCHER_HOST_LABEL_KEY}=${RANCHER_HOST_LABEL_VALUE}
+  tty: true
+  image: registry
+  stdin_open: true
+  environment:
+    REGISTRY_STORAGE_S3_ACCESSKEY: ${AWS_ACCESS_KEY}
+    REGISTRY_STORAGE_S3_SECRETKEY: ${AWS_SECRET_KEY}
+    REGISTRY_STORAGE_S3_REGION: ${AWS_REGION}
+    REGISTRY_STORAGE_S3_BUCKET: ${AWS_S3_BUCKET}
+    REGISTRY_STORAGE: s3
