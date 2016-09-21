@@ -12,7 +12,7 @@ registrylb:
 registry:
   labels:
     io.rancher.container.pull_image: always
-    io.rancher.scheduler.affinity:host_label: ${RANCHER_HOST_LABEL_KEY}=${RANCHER_HOST_LABEL_VALUE}
+    io.rancher.scheduler.affinity:host_label: ${RANCHER_HOST_LABEL_KEYVALUES}
   tty: true
   image: registry
   stdin_open: true
