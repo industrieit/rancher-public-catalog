@@ -16,14 +16,9 @@ registry:
   version: "v.0.0.1"
   description: "It spins up a docker registry for containers"
   questions:
-    - variable: "RANCHER_HOST_LABEL_KEY"
-      label: "Host Label Key"
-      description: "Rancher host label key used to deploy the container eg:tier"
-      type: "string"
-      required: true
-    - variable: "RANCHER_HOST_LABEL_VALUE"
-      label: "Host Label Value"
-      description: "Rancher host label value used to deploy the container eg:1"
+    - variable: "RANCHER_HOST_LABEL_KEYVALUES"
+      label: "Host Label Key value pairs"
+      description: "Rancher host label keys and values used to deploy the container eg:tier=1,env=production"
       type: "string"
       required: true
     - variable: "AWS_ACCESS_KEY"
