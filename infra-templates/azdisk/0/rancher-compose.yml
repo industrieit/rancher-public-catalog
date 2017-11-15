@@ -1,0 +1,44 @@
+.catalog:
+  name: "Rancher AZDISK"
+  version: "0.1.3"
+  description: |
+    Docker volume plugin for Azure Managed Disk
+  minimum_rancher_version: v1.6.10
+  questions:
+  - variable: AZURE_USERNAME
+    label: Azure Username or Service Prinicpal
+    description: Leave blank if using MSI
+    type: string
+  - variable: AZURE_PASSWORD
+    label: Azure Password
+    description: Leave blank if using MSI
+    type: password
+  - variable: AZURE_TENANT_ID
+    label: Azure Tenant ID
+    description: Only required when using a Service Principal, leave blank if using MSI
+    type: string
+  - variable: AZURE_SUBSCRIPTION
+    label: Azure Subscription ID or Name
+    description: Only required if you have more than 1 subscription and you want to use the non default one, leave blank if using MSI
+    type: string
+  - variable: AZURE_SERVICE_PRINCIPAL
+    label: Login is a Service Principal?
+    type: enum
+    description: Enable or disable logging in using a Serivce Prinicpal, leave false if using MSI
+    default: false
+    options:
+    - true
+    - false
+  - variable: RANCHER_DEBUG
+    label: Debug Mode
+    type: enum
+    description: Enable or disable verbose logging
+    default: false
+    options:
+    - true
+    - false
+azdisk-driver:
+  storage_driver:
+    name: rancher-azdisk
+    scope: environment
+    volume_access_mode: singleHostRW

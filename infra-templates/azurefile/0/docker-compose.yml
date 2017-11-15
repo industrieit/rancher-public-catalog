@@ -1,0 +1,24 @@
+version: '2'
+services:
+  azurefile-driver:
+    privileged: true
+    network_mode: host
+    image: industrieco/storage-azurefile:v0.1.2
+    labels:
+      io.rancher.scheduler.global: 'true'
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.agent.role: environment
+    environment:
+      AZURE_STORAGE_ACCOUNT: '${AZURE_STORAGE_ACCOUNT}'
+      AZURE_STORAGE_ACCOUNT_KEY: '${AZURE_STORAGE_ACCOUNT_KEY}'
+      RANCHER_DEBUG: '${RANCHER_DEBUG}'
+    volumes:
+    - /run:/run
+    - /var/run:/var/run
+    - /dev:/host/dev
+    - /var/lib/rancher/volumes:/var/lib/rancher/volumes:shared
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
+        max-file: '2'

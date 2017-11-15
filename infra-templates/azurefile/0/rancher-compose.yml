@@ -1,0 +1,25 @@
+.catalog:
+  name: "Rancher CIFS"
+  version: "0.1.2"
+  description: |
+    Docker volume plugin for Azure File Storage
+  minimum_rancher_version: v1.6.10
+  questions:
+  - variable: AZURE_STORAGE_ACCOUNT
+    label: Azure Storage Account ID
+    type: string
+  - variable: AZURE_STORAGE_ACCOUNT_KEY
+    label: Azure Storage Account Access Key
+    type: password
+  - variable: RANCHER_DEBUG
+    label: Debug Mode
+    type: enum
+    description: Enable or disable verbose logging
+    default: false
+    options:
+    - true
+    - false
+azurefile-driver:
+  storage_driver:
+    name: rancher-azurefile
+    scope: environment

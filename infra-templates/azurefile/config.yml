@@ -1,0 +1,7 @@
+name: Rancher AZUREFILE
+description: |
+  Docker volume plugin for Azure File Storage
+version: 0.1.2
+category: Storage
+labels:
+  io.rancher.orchestration.supported: 'cattle,mesos,swarm'
