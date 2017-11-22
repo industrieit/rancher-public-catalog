@@ -37,6 +37,14 @@
     options:
     - true
     - false
+  - variable: PROXY
+    label: Proxy for access to Azure API
+    description: Sets https_proxy env for accessing Azure API via a proxy, leave blank if no proxy is required
+    type: string
+  - variable: NOPROXY
+    label: FQDNs that don't use a proxy (rancher server)
+    description: Sets no_proxy env for skipping the rancher host if a proxy is used to access the Azure API , leave blank if no proxy is required
+    type: string
 azdisk-driver:
   storage_driver:
     name: rancher-azdisk

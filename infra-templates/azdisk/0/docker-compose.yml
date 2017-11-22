@@ -15,6 +15,10 @@ services:
       AZURE_TENANT_ID: '${AZURE_TENANT_ID}'
       AZURE_SERVICE_PRINCIPAL: '${AZURE_SERVICE_PRINCIPAL}'
       RANCHER_DEBUG: '${RANCHER_DEBUG}'
+      {{- if ne .Values.PROXY ""}}
+      https_proxy: '${PROXY}'
+      {{- end}}
+      no_proxy: '${NOPROXY}'
     volumes:
     - /run:/run
     - /var/run:/var/run
