@@ -1,0 +1,8 @@
+name: Splunk Light
+description: |
+  Counter Errorism. Operational Intelligence. Turn machine data into answers.
+version: 6.5.0
+category: Operational Intelligence
+maintainer: # The maintainer of the catalog entry
+license: # The license
+projectURL: https://www.splunk.com/

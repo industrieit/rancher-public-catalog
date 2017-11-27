@@ -1,0 +1,48 @@
+version: '2'
+services:
+  hub:
+    image: selenium/hub:3.7.1-beryllium
+    {{- if eq .Values.PUBLIC "true" }}
+    ports:
+    - ${PUBLIC_PORT}:4444/tcp
+    {{- end }}
+    labels:
+      io.rancher.scheduler.affinity:host_label: "${AFFINITY_HOST_LABEL}"
+      io.rancher.container.pull_image: always
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
+        max-file: '4'
+  firefox:
+    image: selenium/node-firefox{{- if eq .Values.DEBUG "true" }}-debug{{- end }}:3.7.1-beryllium
+    {{- if eq .Values.DEBUG "true" }}
+    ports:
+    - ${FIREFOX_DEBUG_PORT}:5900/tcp
+    {{- end }}
+    links:
+    - hub
+    labels:
+      io.rancher.scheduler.affinity:host_label: "${AFFINITY_HOST_LABEL}"
+      io.rancher.container.pull_image: always
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
+        max-file: '4'
+  chrome:
+    image: selenium/node-chrome{{- if eq .Values.DEBUG "true" }}-debug{{- end }}:3.7.1-beryllium
+    {{- if eq .Values.DEBUG "true" }}
+    ports:
+    - ${CHROME_DEBUG_PORT}:5900/tcp
+    {{- end }}
+    links:
+    - hub
+    labels:
+      io.rancher.scheduler.affinity:host_label: "${AFFINITY_HOST_LABEL}"
+      io.rancher.container.pull_image: always
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
+        max-file: '4'

@@ -1,0 +1,36 @@
+.catalog:
+  name: "Instana agent"
+  version: "1.0.1"
+  description: "Instana agent for performance monitoring"
+  minimum_rancher_version: "1.3.6"
+  questions:
+  - variable: INSTANA_HOST
+    label: SaaS host name
+    description: Use saas-eu-west-1 for Europe, saas-us-west-2 for everywhere else
+    type: enum
+    required: true
+    default: saas-us-west-2.instana.io
+    options:
+    - saas-eu-west-1.instana.io
+    - saas-us-west-2.instana.io
+  - variable: INSTANA_KEY
+    label: Key
+    description: The unique key for your SaaS environment
+    type: string
+    required: true
+  - variable: INSTANA_ZONE
+    label: Zone
+    description: An abstract host grouping definition, eg Development
+    type: string
+  - variable: INSTANA_TAGS
+    label: Tags
+    description: Any other grouping that should be applied to this definition
+    type: string
+  - variable: AFFINITY_HOST_LABEL
+    label: Host Affinity
+    description: Control the hosts on which the agent runs. Will run globally if left blank.
+    type: string
+    default: instana.monitoring=true
+agent:
+  scale: 1
+  start_on_create: true

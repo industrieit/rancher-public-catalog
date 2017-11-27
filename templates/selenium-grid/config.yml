@@ -1,0 +1,8 @@
+name: Selenium Grid
+description: |
+  Selenium automates browsers.
+version: 3.7.1-beryllium
+category: Test Automation
+maintainer: 
+license: 
+projectURL: http://www.seleniumhq.org/

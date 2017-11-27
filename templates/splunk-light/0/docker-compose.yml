@@ -1,0 +1,39 @@
+version: '2'
+services:
+  forwarder:
+    image: splunk/universalforwarder:6.5.3
+    environment:
+      SPLUNK_FORWARD_SERVER: splunk.splunk-light.rancher.internal:9997
+      SPLUNK_DEPLOYMENT_SERVER: splunk.splunk-light.rancher.internal:8089
+      SPLUNK_START_ARGS: --accept-license --answer-yes
+      SPLUNK_USER: root
+    logging:
+      driver: json-file
+      options:
+        max-file: '5'
+        max-size: 10m
+    links:
+    - splunk:splunk
+    labels:
+      io.rancher.scheduler.affinity:host_label: ${AFFINITY_HOST_LABEL}
+      io.rancher.container.pull_image: always
+  splunk:
+    image: yugeshdocker1/docker-splunk-light:latest
+    {{- if eq .Values.PUBLIC "true" }}
+    ports:
+    - ${PUBLIC_PORT}:8000/tcp
+    {{- end }}
+    environment:
+      SPLUNK_START_ARGS: --accept-license --answer-yes
+      SPLUNK_ENABLE_DEPLOY_SERVER: true
+    volumes:
+    - /opt/splunk/etc:/opt/splunk/etc
+    - /opt/splunk/var:/opt/splunk/var
+    logging:
+      driver: json-file
+      options:
+        max-file: '5'
+        max-size: 10m
+    labels:
+      io.rancher.scheduler.affinity:host_label: ${AFFINITY_HOST_LABEL}
+      io.rancher.container.pull_image: always

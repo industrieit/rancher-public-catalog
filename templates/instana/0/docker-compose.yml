@@ -1,0 +1,30 @@
+version: '2'
+services:
+  agent:
+    image: instana/agent:1.0.1
+    privileged: true
+    network_mode: "host"
+    pid: "host"
+    ipc: "host"
+    environment:
+      INSTANA_PORT: 443
+      INSTANA_HOST: "${INSTANA_HOST}"
+      INSTANA_KEY: "${INSTANA_KEY}"
+      INSTANA_ZONE: "${INSTANA_ZONE}"
+      INSTANA_TAGS: "${INSTANA_TAGS}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev:/dev
+      - /sys:/sys
+      - /var/log:/var/log
+    labels:
+      io.rancher.scheduler.global: 'true'
+      io.rancher.container.hostname_override: 'true'
+      io.rancher.container.pull_image: always
+      io.rancher.container.network: 'true'
+      io.rancher.scheduler.affinity:host_label: "${AFFINITY_HOST_LABEL}"
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
+        max-file: '4'
