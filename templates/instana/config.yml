@@ -1,0 +1,8 @@
+name: Instana Agent
+description: |
+   Fully automatic application performance monitoring solution.
+version: 1.0.1
+category: Monitoring
+maintainer: 
+license: 
+projectURL: https://www.instana.com/ 

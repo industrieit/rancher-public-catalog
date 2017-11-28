@@ -1,0 +1,49 @@
+.catalog:
+  name: Selenium Grid
+  version: 3.7.1-beryllium
+  description: Selenium autonmates browsers!
+  minimum_rancher_version: 1.3.6
+  questions:
+    - variable: PUBLIC
+      label: Publish Main Selenium Port?
+      description: Choose to allow direct access to the hub port.  Otherwise externally configure access eg via a load balancer.
+      required: true
+      default: true
+      type: boolean
+    - variable: PUBLIC_PORT
+      label: Main Selenium Port to Publish
+      description: Normally 4444. Ignored if publish is false, otherwise required.
+      default: 4444
+      type: int
+    - variable: AFFINITY_HOST_LABEL
+      label: Host Affinity
+      description: Control the hosts on which the selenium runs. Will run on any available host if left blank.
+      type: string
+      default: selenium=true
+    - variable: DEBUG
+      label: Debug?
+      description: Choose to install debug versions of the nodes.  All node types are switched.
+      required: true
+      default: false
+      type: boolean
+    - variable: FIREFOX_DEBUG_PORT
+      label: Firefox VNC Debug Port
+      description: Ignored if DEBUG is false.
+      required: false
+      default: 15900
+      type: int
+    - variable: CHROME_DEBUG_PORT
+      label: Chrome VNC Debug Port
+      description: Ignored if DEBUG is false.
+      required: false
+      default: 25900
+      type: int
+hub:
+  scale: 1
+  start_on_create: true
+firefox:
+  scale: 1
+  start_on_create: true
+chrome:
+  scale: 1
+  start_on_create: true
