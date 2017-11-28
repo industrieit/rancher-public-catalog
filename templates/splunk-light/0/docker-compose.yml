@@ -25,6 +25,7 @@ services:
     {{- end }}
     environment:
       SPLUNK_START_ARGS: --accept-license --answer-yes
+      SPLUNK_ENABLE_LISTEN: 9997
       SPLUNK_ENABLE_DEPLOY_SERVER: true
     volumes:
     - /opt/splunk/etc:/opt/splunk/etc
