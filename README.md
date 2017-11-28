@@ -10,7 +10,7 @@ Using the Rancher UI with administrator privileges;
 
   1. Navigate to the ADMIN menu > Settings > Catalog Pane.
   2. Add Catalog.
-  3. Enter a name such as "Industrie & Co".
+  3. Enter a name such as "Industrie" (Rancher doesn't play well with ampersand (&) here, so leave out that character).
   4. Place the clone URL for this repository into the URL field.
   5. Leave the default master branch selection.
   5. Save.
