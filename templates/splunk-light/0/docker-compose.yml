@@ -28,8 +28,8 @@ services:
       SPLUNK_ENABLE_LISTEN: 9997
       SPLUNK_ENABLE_DEPLOY_SERVER: true
     volumes:
-    - /opt/splunk/etc:/opt/splunk/etc
-    - /opt/splunk/var:/opt/splunk/var
+    - opt-splunk-etc:/opt/splunk/etc
+    - opt-splunk-var:/opt/splunk/var
     logging:
       driver: json-file
       options:
