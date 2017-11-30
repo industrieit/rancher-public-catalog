@@ -18,10 +18,15 @@ Volumes;
 - To save data outside of the container and host, a volume should be mounted at /opt/splunk on the host running the splunk search head/indexer.
 - Without a separately mounted volume splunk data (config and logging) will be lost when the supporting host is terminated.
 
+Data Receiving;
+
+- splunk has been pre-configured to listen for forwarder input on port 9997.
+- the included forwarder has been configured to point at this splunk instance and port.
+
 Deployment Server;
 
 - The Splunk server is also configured to be a Splunk deployment server.
-- The Splunk Universal Forwarder is registered with the deployment server.
+- The Splunk Universal Forwarder is registered as a client with the above deployment server.
 
 Credentials;
 
