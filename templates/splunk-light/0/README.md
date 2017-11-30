@@ -15,9 +15,11 @@ Licence;
 
 Volumes;
 
-- To save data outside of the container and host, a volume should be mounted at /opt/splunk on the host running the splunk search head/indexer.
-- Without a separately mounted volume splunk data (config and logging) will be lost when the supporting host is terminated.
-
+- There are two named volumes for this catalog entry.
+  - opt-splunk-var
+  - opt-splunk-etc
+- If these volumes are not available when the container splunk container starts all data will reside in the container and be lost when terminated.
+  
 Data Receiving;
 
 - splunk has been pre-configured to listen for forwarder input on port 9997.
