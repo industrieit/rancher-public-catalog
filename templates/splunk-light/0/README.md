@@ -18,8 +18,8 @@ Volumes;
 - There are two named volumes for this catalog entry.
   - opt-splunk-var
   - opt-splunk-etc
-- If these volumes are not available when the container splunk container starts all data will reside in the container and be lost when terminated.
-  
+- If these volumes are not available when the splunk container starts data will reside in the container and be lost when terminated.
+
 Data Receiving;
 
 - splunk has been pre-configured to listen for forwarder input on port 9997.
@@ -42,8 +42,8 @@ Options;
   - If set to false a load balancer is expected to point at the exposed Splunk port 8000.
   - When set to true the published port can be chosen.  This is mapped back to the container port of 8000.
 2. Host Affinity
-  - Control the hosts on which selenium will run.
-  - When blank Splunk will run on any available host in the environment.
+  - Control the hosts on which the Splunk components will run.
+  - When blank, Splunk components will run on any available host in the environment.
 
 
 ## Documentation
