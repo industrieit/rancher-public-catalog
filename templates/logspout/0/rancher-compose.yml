@@ -1,0 +1,18 @@
+version: '2'
+catalog:
+  name: "Logspout"
+  version: "v1.0"
+  description: "Log exporter"
+  questions:
+    - variable: graylog_server_name
+      description: "Where to reach the Graylog server"
+      label: "Graylog server name"
+      required: true
+      default: graylog
+      type: "string"
+    - variable: graylog_server_port
+      description: "Graylog server port (UDP)"
+      label: "Graylog server port"
+      required: true
+      default: 12201
+      type: "int"

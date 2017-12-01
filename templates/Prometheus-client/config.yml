@@ -1,0 +1,5 @@
+name: Prometheus-client
+description: |
+  Monitoring agents to export data for Prometheus
+version: 3.1.0
+category: Monitoring

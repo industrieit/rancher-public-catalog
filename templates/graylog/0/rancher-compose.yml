@@ -1,0 +1,172 @@
+.catalog:
+  name: "Graylog"
+  version: "v2.3.1-1"
+  description: "Open source log management that actually works."
+  questions:
+    - variable: graylog_lb_port
+      description: "Public port for access to Graylog through the load balancer"
+      label: "Graylog Public LB Port"
+      required: true
+      default: 9000
+      type: "int"
+    - variable: graylog_password
+      description: "Password in SHA2 (default hash is of 'admin')."
+      label: "SHA2 Password"
+      type: password
+      required: true
+      default: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+    - variable: graylog_secret
+      description: "Password secret"
+      label: "Password secret"
+      type: password
+      default: "replacethiswithyourownsecret!"
+      required: true
+    - variable: graylog_fqdn
+      description: "FQDN of Graylog"
+      label: "FQDN"
+      type: "string"
+      default: "localhost"
+      required: true
+    - variable: lb_host_label
+      label: Load Balancer Host Label
+      description: Host label for scheduling of the load balancer service.  Leave empty to run on all hosts.
+      required: false
+      default: "tier=tier1"
+      type: string
+    - variable: graylog_server_host_label
+      label: Graylog Server Host Label
+      description: Host label for scheduling of the Graylog service.  Leave empty for not host affinity.
+      required: false
+      default: "tier=tier2"
+      type: string
+    - variable: elasticsearch_host_label
+      label: Elasticsearch Host Label
+      description: Host label for scheduling of the Elasticsearch service.  Leave empty for not host affinity.
+      required: false
+      default: "tier=tier3"
+      type: string
+    - variable: mongodb_host_label
+      label: Mongo DB Host Label
+      description: Host label (soft affinity) for scheduling of the Mongo DB service.  Leave empty for not host affinity.
+      required: false
+      default: "tier=tier3"
+      type: string
+    - variable: enable_logspout
+      label: Logspout Setup
+      description: Run a service for logspout to send container logs.
+      default: true
+      required: false
+      type: boolean
+    - variable: "graylog_volume_driver"
+      description: "The volume driver to use with the Graylog service"
+      label: "Graylog Volume Driver"
+      required: true
+      default: "local"
+      type: enum
+      options:
+        - local
+        - rancher-nfs
+        - rancher-efs
+        - rancher-ebs
+        - rancher-azdisk
+        - rancher-azurefile
+    - variable: graylog_volume_driver_external
+      description: "Use an environment wide volume for Graylog"
+      label: "Graylog Volume driver - environment wide?"
+      required: true
+      default: "false"
+      type: enum
+      options:
+        - false
+        - true
+    - variable: "elasticsearch_volume_driver"
+      description: "The volume driver to use with the Elasticsearch service"
+      label: "Elasticsearch Volume Driver"
+      required: true
+      default: "local"
+      type: enum
+      options:
+        - local
+        - rancher-nfs
+        - rancher-efs
+        - rancher-ebs
+        - rancher-azdisk
+        - rancher-azurefile
+    - variable: elasticsearch_volume_driver_external
+      description: "Use an environment wide volume for Elasticsearch"
+      label: "Elasticsearch Volume driver - environment wide?"
+      required: true
+      default: "false"
+      type: enum
+      options:
+        - false
+        - true
+    - variable: elasticsearch_volume_size
+      description: "Size in GB of the Elasticsearch volume (for non local volumes)"
+      label: "Elasticsearch Volume Size in GB"
+      required: true
+      default: "128"
+      type: string
+    - variable: "mongodb_volume_driver"
+      description: "The volume driver to use with the Mongo DB service"
+      label: "Mongo DB Volume Driver"
+      required: true
+      default: "local"
+      type: enum
+      options:
+        - local
+        - rancher-nfs
+        - rancher-efs
+        - rancher-ebs
+        - rancher-azdisk
+        - rancher-azurefile
+    - variable: mongodb_volume_driver_external
+      description: "Use an environment wide volume for the DB"
+      label: "DB Volume driver - environment wide?"
+      required: true
+      default: "false"
+      type: enum
+      options:
+        - false
+        - true
+    - variable: https_proxy
+      description: "Only required if you need a proxy to access the internet"
+      label: "HTTPS proxy for geoip data download"
+      required: false
+      default: ""
+      type: "string"
+version: '2'
+services:
+  graylog-lb:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      certs: []
+      port_rules:
+      - priority: 1
+        protocol: http
+        service: graylog
+        source_port: 9000
+        target_port: 9000
+      - priority: 2
+        protocol: http
+        service: kopf
+        source_port: 9001
+        target_port: 80
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 42
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      reinitializing_timeout: 60000
+  elasticsearch:
+    scale: 1
+    start_on_create: true
+  graylog:
+    scale: 1
+    start_on_create: true
+  mongo:
+    scale: 1
+    start_on_create: true

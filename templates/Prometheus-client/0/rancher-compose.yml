@@ -1,0 +1,5 @@
+.catalog:
+  name: "Prometheus-client"
+  version: "3.1.0"
+  description: "Monitoring agents to export data for Prometheus"
+  minimum_rancher_version: v1.5.5

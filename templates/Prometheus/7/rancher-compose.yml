@@ -1,0 +1,80 @@
+.catalog:
+  name: "Prometheus"
+  version: "3.2.0"
+  description: "Prometheus Monitoring Solution"
+  uuid: prometheus-2
+  minimum_rancher_version: v1.5.5
+  questions:
+  - variable: "RANCHER_SERVER"
+    label: "Rancher Server"
+    description: "IP Address of the rancher server, no HTTP or slashes. This is only required for users that have enabled metrics to be exported by Rancher"
+    default: "0.0.0.0"
+    required: false
+    type: "string"
+  - variable: RANCHER_URL
+    label: Rancher URL
+    description: Used by Prometheus Rancher Discovery to get metadata from Rancher API, leave blank to disable discovery.  When used, you will need to run a prometheus-client stack in each environment
+    required: false
+    type: string
+  - variable: RANCHER_ACCESS_KEY
+    label: "Rancher Access Key"
+    description: "Used by Prometheus Rancher Discovery"
+    required: false
+    type: string
+  - variable: RANCHER_SECRET_KEY
+    label: "Rancher Secret Key"
+    description: "Used by Prometheus Rancher Discovery"
+    required: false
+    type: password
+  - variable: GRAFANA_PORT
+    label: "Public port for Grafana to bind to"
+    description: "Leave empty if you're going to add a Rancher Load Balancer in front of Grafana."
+    required: false
+    default: ""
+    type: string
+  - variable: GRAFANA_HOST_LABEL
+    label: Grafana Host Label
+    description: Host label for scheduling of the Grafana service.  Leave empty for no host affinity.
+    required: false
+    default: "tier=tier2"
+  - variable: PROMETHEUS_PORT
+    label: "Public port for Prometheus to bind to"
+    description: "Leave empty if you're going to add a Rancher Load Balancer in front of Prometheus."
+    required: false
+    default: ""
+    type: string
+  - variable: PROMETHEUS_HOST_LABEL
+    label: Prometheus Host Label
+    description: Host label for scheduling of the Prometheus service.  Leave empty for no host affinity.
+    required: false
+    default: "tier=tier2"
+
+prometheus:
+  scale: 1
+  health_check:
+    port: 9090
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+
+grafana:
+  scale: 1
+  health_check:
+    port: 3000
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+
+prometheus-rancher-exporter:
+  scale: 1
+  health_check:
+    port: 9173
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

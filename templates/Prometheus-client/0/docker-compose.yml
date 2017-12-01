@@ -1,0 +1,24 @@
+version: '2'
+services:
+  cadvisor:
+    labels:
+      io.rancher.scheduler.global: 'true'
+    tty: true
+    image: google/cadvisor:latest
+    stdin_open: true
+    ports:
+      - 9103:8080
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+
+  node-exporter:
+    labels:
+      io.rancher.scheduler.global: 'true'
+    tty: true
+    ports:
+      - 9104:9100
+    image: prom/node-exporter:latest
+    stdin_open: true

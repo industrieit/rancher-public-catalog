@@ -1,0 +1,82 @@
+.catalog:
+  name: "Graylog"
+  version: "v2.3.2-2"
+  description: "Open source log management that actually works."
+  questions:
+    - variable: graylog_timezone
+      description: "Timezone to display logs in"
+      label: "Graylog Timezone"
+      type: string
+      required: true
+      default: "Australia/Sydney"
+    - variable: graylog_password
+      description: "Password in SHA2 (default hash is of 'admin').  Create a new one by running 'echo -n yourpassword | shasum -a 256'"
+      label: "SHA2 Password"
+      type: password
+      required: true
+      default: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+    - variable: graylog_secret
+      description: "Password secret"
+      label: "Password secret"
+      type: password
+      default: "replacethiswithyourownsecret!"
+      required: true
+    - variable: graylog_url
+      description: "API URL for Graylog.  The web UI will contact the API on this, (http://${graylog_fqdn}:${port}/api)"
+      label: "FQDN"
+      type: "string"
+      default: "http://localhost:9000/api"
+      required: true
+    - variable: graylog_port
+      label: "Public port for Graylog to bind to"
+      description: "Leave empty if you're going to add a Rancher Load Balancer in front of Graylog."
+      required: false
+      default: "9000"
+      type: string
+    - variable: graylog_server_host_label
+      label: Graylog Server Host Label
+      description: Host label for scheduling of the Graylog service.  Leave empty for no host affinity.
+      required: false
+      default: "tier=tier2"
+      type: string
+    - variable: elasticsearch_port
+      label: "Public port for Kopf (Elasticsearch) to bind to"
+      description: "Leave empty if you're going to add a Rancher Load Balancer in front of Kopf (Elasticsearch)."
+      required: false
+      default: ""
+      type: string
+    - variable: elasticsearch_host_label
+      label: Elasticsearch Host Label
+      description: Host label for scheduling of the Elasticsearch service.  Leave empty for no host affinity.
+      required: false
+      default: "tier=tier3"
+      type: string
+    - variable: mongodb_host_label
+      label: Mongo DB Host Label
+      description: Host label (soft affinity) for scheduling of the Mongo DB service.  Leave empty for no host affinity.
+      required: false
+      default: "tier=tier3"
+      type: string
+    - variable: enable_logspout
+      label: Logspout Setup
+      description: Run a service for logspout to send container logs to Graylog.
+      default: true
+      required: false
+      type: boolean
+    - variable: https_proxy
+      description: "Only required if you need a proxy to access the internet"
+      label: "HTTPS proxy for geoip data download"
+      required: false
+      default: ""
+      type: "string"
+version: '2'
+services:
+  elasticsearch:
+    scale: 1
+    start_on_create: true
+  graylog:
+    scale: 1
+    start_on_create: true
+  mongo:
+    scale: 1
+    start_on_create: true

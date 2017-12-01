@@ -1,0 +1,5 @@
+name: Logspout
+description: |
+    Open source log management that actually works.
+version: v1.0
+category: Logging
