@@ -20,5 +20,5 @@ Create these volumes before spinning up the stack:
 ## Usage
 * Graylog will be available on port 9000. Authentication is with the default `admin/admin`.
 * Graylog also listens on ports 12201 (UDP & TCP) and port 1514.
-* Elasticsearch will be available, on port 9001 via the Kopf web UI.
+* Elasticsearch will be available, on port 80 via the Kopf web UI.
 * The first step is to add a GELF UDP input (System->Inputs)

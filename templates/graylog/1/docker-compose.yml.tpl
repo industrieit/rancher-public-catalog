@@ -51,14 +51,15 @@ services:
       GRAYLOG_ROOT_PASSWORD_SHA2: ${graylog_password}
       GRAYLOG_WEB_ENDPOINT_URI: "${graylog_url}"
     labels:
-      #io.rancher.sidekicks: geoip-data
+      io.rancher.sidekicks: geoip-data
       {{- if ne .Values.graylog_server_host_label "" }}
       io.rancher.scheduler.affinity:host_label: ${graylog_server_host_label}
       {{- end}}
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     volumes:
-      - graylog-geodata-volume:/usr/share/graylog/data/geoip
       - graylog-journal-volume:/usr/share/graylog/data/journal
+    volumes_from:
+      - geoip-data
     links:
       - elasticsearch:elasticsearch
       - mongo:mongo
@@ -74,7 +75,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - graylog-geodata-volume:/usr/share/graylog/data/geoip
+      - /usr/share/graylog/data/geoip
     environment:
       GEOIP_DB_DIR: '/usr/share/graylog/data/geoip/'
       {{- if ne .Values.https_proxy "" }}
