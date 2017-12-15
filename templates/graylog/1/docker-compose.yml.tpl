@@ -102,11 +102,11 @@ services:
 {{- end }}
 {{- if eq .Values.volumes_external "true" }}
 volumes:
-  graylog-journal-volume:
+  graylog-journal-volume:/mnt/data/graylog/data/journal
     external: true
-  graylog-mongo-volume:
+  graylog-mongo-volume:/mnt/data/mongo/data/db
     external: true
-  graylog-elasticsearch-volume:
+  graylog-elasticsearch-volume:/mnt/data/elasticsearch/data
     external: true
   graylog-geodata-volume:
     external: true
