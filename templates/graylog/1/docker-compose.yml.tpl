@@ -100,3 +100,14 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
 {{- end }}
+{{- if eq .Values.volumes_external "true" }}
+volumes:
+  graylog-journal-volume:
+    external: true
+  graylog-mongo-volume:
+    external: true
+  graylog-elasticsearch-volume:
+    external: true
+  graylog-geodata-volume:
+    external: true
+{{- end }}

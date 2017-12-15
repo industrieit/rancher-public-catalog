@@ -69,6 +69,12 @@
       required: false
       default: ""
       type: "string"
+    - variable: volumes_external
+      description: "Choose if all volumes to be externalised."
+      label: "External docker volumes?"
+      required: true
+      default: true
+      type: boolean
 version: '2'
 services:
   elasticsearch:
