@@ -3,7 +3,7 @@ services:
   mongo:
     image: "mongo:3"
     volumes:
-      - graylog-mongo-volume:/data/db
+      - {{- if ne .Values.volume_type "named" }}graylog-mongo-volume{{- else}}${volume_mnt_src}/mongo/data/db{{- end}}:/data/db
     {{- if ne .Values.mongodb_host_label "" }}
     labels:
       io.rancher.scheduler.affinity:host_label: ${mongodb_host_label}
@@ -16,7 +16,7 @@ services:
       - elasticsearch
       - -Des.cluster.name=graylog
     volumes:
-      - graylog-elasticsearch-volume:/usr/share/elasticsearch/data
+      - {{- if ne .Values.volume_type "named" }}graylog-elasticsearch-volume{{- else}}${volume_mnt_src}/elasticsearch/data{{- end}}:/usr/share/elasticsearch/data
     labels:
         io.rancher.container.pull_image: always
         {{- if ne .Values.elasticsearch_host_label "" }}
@@ -57,7 +57,7 @@ services:
       {{- end}}
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     volumes:
-      - graylog-journal-volume:/usr/share/graylog/data/journal
+      - {{- if ne .Values.volume_type "named" }}graylog-journal-volume{{- else}}${volume_mnt_src}/graylog/data/journal{{- end}}:/usr/share/graylog/data/journal
     volumes_from:
       - geoip-data
     links:
@@ -75,7 +75,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - /usr/share/graylog/data/geoip
+      - {{- if ne .Values.volume_type "named" }}graylog-geodata-volume{{- else}}${volume_mnt_src}/geoip{{- end}}:/usr/share/graylog/data/geoip
     environment:
       GEOIP_DB_DIR: '/usr/share/graylog/data/geoip/'
       {{- if ne .Values.https_proxy "" }}
