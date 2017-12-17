@@ -3,7 +3,8 @@ services:
   mongo:
     image: "mongo:3"
     volumes:
-      {{- if eq .Values.volume_type "named" }}- graylog-mongo-volume{{- else}}- ${volume_mnt_src}/mongo/data/db{{- end}}:/data/db
+      - {{- if eq .Values.volume_type "named" }}graylog-mongo-volume{{- end}}:/data/db
+      #{{- if eq .Values.volume_type "named" }}- graylog-mongo-volume{{- else}}- ${volume_mnt_src}/mongo/data/db{{- end}}:/data/db
     {{- if ne .Values.mongodb_host_label "" }}
     labels:
       io.rancher.scheduler.affinity:host_label: ${mongodb_host_label}
