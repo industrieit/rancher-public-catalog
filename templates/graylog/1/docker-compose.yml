@@ -8,7 +8,6 @@ services:
       {{- else}}
       - ${volume_mnt_src}/mongo/data/db:/data/db
       {{- end}}
-      #{{- if eq .Values.volume_type "named"}}- graylog-mongo-volume{{- else}}- ${volume_mnt_src}/mongo/data/db{{- end}}:/data/db
     {{- if ne .Values.mongodb_host_label "" }}
     labels:
       io.rancher.scheduler.affinity:host_label: ${mongodb_host_label}
@@ -21,7 +20,11 @@ services:
       - elasticsearch
       - -Des.cluster.name=graylog
     volumes:
-      - {{- if eq .Values.volume_type "named"}}graylog-elasticsearch-volume{{- else}}${volume_mnt_src}/elasticsearch/data{{- end}}:/usr/share/elasticsearch/data
+      {{- if eq .Values.volume_type "named"}}
+      - graylog-elasticsearch-volume:/usr/share/elasticsearch/data
+      {{- else}}
+      - ${volume_mnt_src}/elasticsearch/data:/usr/share/elasticsearch/data
+      {{- end}}
     labels:
         io.rancher.container.pull_image: always
         {{- if ne .Values.elasticsearch_host_label "" }}
@@ -62,7 +65,11 @@ services:
       {{- end}}
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     volumes:
-      - {{- if eq .Values.volume_type "named"}}graylog-journal-volume{{- else}}${volume_mnt_src}/graylog/data/journal{{- end}}:/usr/share/graylog/data/journal
+      {{- if eq .Values.volume_type "named"}}
+      - graylog-journal-volume:/usr/share/graylog/data/journal
+      {{- else}}
+      - ${volume_mnt_src}/graylog/data/journal:/usr/share/graylog/data/journal
+      {{- end}}
     volumes_from:
       - geoip-data
     links:
@@ -80,7 +87,11 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - {{- if eq .Values.volume_type "named"}}graylog-geodata-volume{{- else}}${volume_mnt_src}/geoip{{- end}}:/usr/share/graylog/data/geoip
+      {{- if eq .Values.volume_type "named"}}
+      - graylog-geodata-volume:/usr/share/graylog/data/geoip
+      {{- else}}
+      - ${volume_mnt_src}/geoip:/usr/share/graylog/data/geoip
+      {{- end}}
     environment:
       GEOIP_DB_DIR: '/usr/share/graylog/data/geoip/'
       {{- if ne .Values.https_proxy "" }}
