@@ -82,6 +82,7 @@ services:
       - 12201:12201/udp
       - 12201:12201/tcp
       - 1514:1514/udp
+      - 5044:5044/tcp
   geoip-data:
     image: tkrs/maxmind-geoipupdate
     stdin_open: true
