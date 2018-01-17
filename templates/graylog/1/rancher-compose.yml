@@ -37,7 +37,7 @@
       label: Graylog Server Host Label
       description: Host label for scheduling of the Graylog service.  Leave empty for no host affinity.
       required: false
-      default: "tier=tier2"
+      default: "graylog=true"
       type: string
     - variable: elasticsearch_port
       label: "Public port for Kopf (Elasticsearch) to bind to"
@@ -49,13 +49,13 @@
       label: Elasticsearch Host Label
       description: Host label for scheduling of the Elasticsearch service.  Leave empty for no host affinity.
       required: false
-      default: "tier=tier3"
+      default: "graylog=true"
       type: string
     - variable: mongodb_host_label
       label: Mongo DB Host Label
       description: Host label (soft affinity) for scheduling of the Mongo DB service.  Leave empty for no host affinity.
       required: false
-      default: "tier=tier3"
+      default: "graylog=true"
       type: string
     - variable: enable_logspout
       label: Logspout Setup
@@ -68,6 +68,21 @@
       label: "HTTPS proxy for geoip data download"
       required: false
       default: ""
+      type: "string"
+    - variable: volume_type
+      label: Volume Type
+      description: The graylog volume connection type. Used by all components saving state.
+      type: enum
+      required: true
+      default: named
+      options:
+      - named
+      - bind mount
+    - variable: volume_mnt_src
+      description: "Only required if volume type is set to bind mount."
+      label: "Volume source mount point"
+      required: false
+      default: "/mnt/data"
       type: "string"
 version: '2'
 services:
