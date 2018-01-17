@@ -47,6 +47,9 @@ services:
     tty: true
     labels:
         io.rancher.container.pull_image: always
+        {{- if ne .Values.kopf_host_label "" }}
+        io.rancher.scheduler.affinity:host_label: ${kopf_host_label}
+        {{- end}}
   graylog:
     image: "graylog2/server:2.3.2-2"
     stdin_open: true

@@ -57,6 +57,12 @@
       required: false
       default: "graylog=true"
       type: string
+    - variable: kopf_host_label
+      label: kopf Host Label
+      description: Host label (soft affinity) for scheduling of the kopf service.  Leave empty for no host affinity.
+      required: false
+      default: "graylog=true"
+      type: string
     - variable: enable_logspout
       label: Logspout Setup
       description: Run a service for logspout to send container logs to Graylog.
