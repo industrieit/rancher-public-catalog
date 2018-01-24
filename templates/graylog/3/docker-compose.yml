@@ -25,11 +25,11 @@ services:
         soft: -1
         hard: -1
     volumes:
-      {{- if eq .Values.volume_type "named"}}
+      # {{- if eq .Values.volume_type "named"}}
       - graylog-elasticsearch-volume:/usr/share/elasticsearch/data
-      {{- else}}
-      - ${volume_mnt_src}/elasticsearch/data:/usr/share/elasticsearch/data
-      {{- end}}
+      # {{- else}}
+      # - ${volume_mnt_src}/elasticsearch/data:/usr/share/elasticsearch/data
+      # {{- end}}
     labels:
         io.rancher.container.pull_image: always
         {{- if ne .Values.elasticsearch_host_label "" }}
@@ -124,3 +124,9 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
 {{- end }}
+volumes:
+  graylog-elasticsearch-volume:
+    driver_opts:
+       type: none
+       device: /mnt/data/elasticsearch/data
+       o: bind
