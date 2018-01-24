@@ -13,12 +13,17 @@ services:
       io.rancher.scheduler.affinity:host_label: ${mongodb_host_label}
     {{- end}}
   elasticsearch:
-    image: elasticsearch:5.6.6-alpine
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.2
     stdin_open: true
     tty: true
-    command:
-      - elasticsearch
-      - -Des.cluster.name=graylog
+    environment:
+      - cluster.name=graylog
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
       {{- if eq .Values.volume_type "named"}}
       - graylog-elasticsearch-volume:/usr/share/elasticsearch/data
