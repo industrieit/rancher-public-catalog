@@ -6,7 +6,7 @@ volumes:
       device: ${volume_mnt_src}/elasticsearch/data
       o: bind
       type: none
-{{-end}}
+{{- end}}
 services:
   mongo:
     image: "mongo:3.6.2"
