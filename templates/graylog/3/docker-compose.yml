@@ -1,4 +1,12 @@
 version: '2'
+{{- if ne .Values.volume_type "named"}}
+volumes:
+  graylog-elasticsearch-volume:
+    driver_opts:
+      device: ${volume_mnt_src}/elasticsearch/data
+      o: bind
+      type: none
+{{-end}}
 services:
   mongo:
     image: "mongo:3.6.2"
@@ -17,26 +25,21 @@ services:
     stdin_open: true
     tty: true
     environment:
-      - cluster.name=graylog
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      cluster.name: graylog
+      bootstrap.memory_lock: true
+      discovery.type: single-node
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      # {{- if eq .Values.volume_type "named"}}
       - graylog-elasticsearch-volume:/usr/share/elasticsearch/data
-      # {{- else}}
-      # - ${volume_mnt_src}/elasticsearch/data:/usr/share/elasticsearch/data
-      # {{- end}}
     labels:
-        io.rancher.container.pull_image: always
-        {{- if ne .Values.elasticsearch_host_label "" }}
-        io.rancher.scheduler.affinity:host_label: ${elasticsearch_host_label}
-        {{- end}}
-        io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
-        #io.rancher.sidekicks: kopf
+      io.rancher.container.pull_image: always
+      {{- if ne .Values.elasticsearch_host_label "" }}
+      io.rancher.scheduler.affinity:host_label: ${elasticsearch_host_label}
+      {{- end}}
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
   kopf:
     image: lmenezes/elasticsearch-kopf:2.1.2
     environment:
@@ -51,10 +54,10 @@ services:
     stdin_open: true
     tty: true
     labels:
-        io.rancher.container.pull_image: always
-        {{- if ne .Values.kopf_host_label "" }}
-        io.rancher.scheduler.affinity:host_label: ${kopf_host_label}
-        {{- end}}
+      io.rancher.container.pull_image: always
+      {{- if ne .Values.kopf_host_label "" }}
+      io.rancher.scheduler.affinity:host_label: ${kopf_host_label}
+      {{- end}}
   graylog:
     image: "industrieco/graylog:2.4.1-2"
     stdin_open: true
@@ -124,9 +127,3 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
 {{- end }}
-volumes:
-  graylog-elasticsearch-volume:
-    driver_opts:
-       type: none
-       device: /mnt/data/elasticsearch/data
-       o: bind
