@@ -1,6 +1,6 @@
 .catalog:
   name: "Graylog"
-  version: "v2.4.1-2"
+  version: "v2.4.3-1"
   description: "Open source log management that actually works."
   questions:
     - variable: graylog_timezone
