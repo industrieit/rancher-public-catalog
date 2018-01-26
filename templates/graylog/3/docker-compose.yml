@@ -62,7 +62,7 @@ services:
       io.rancher.scheduler.affinity:host_label: ${kopf_host_label}
       {{- end}}
   graylog:
-    image: "industrieco/graylog:2.4.1-2"
+    image: "industrieco/graylog:2.4.3-1"
     stdin_open: true
     tty: true
     environment:
