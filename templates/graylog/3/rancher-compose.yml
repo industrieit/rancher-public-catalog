@@ -80,10 +80,10 @@
       description: The graylog volume connection type. Used by all components saving state.
       type: enum
       required: true
-      default: named
+      default: bind
       options:
       - named
-      - bind mount
+      - bind
     - variable: volume_mnt_src
       description: "Only required if volume type is set to bind mount."
       label: "Volume source mount point"
