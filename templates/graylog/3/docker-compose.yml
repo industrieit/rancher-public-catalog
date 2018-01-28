@@ -16,10 +16,11 @@ services:
       {{- else}}
       - ${volume_mnt_src}/mongo/data/db:/data/db
       {{- end}}
-    {{- if ne .Values.mongodb_host_label "" }}
     labels:
+      io.rancher.container.hostname_override: container_name
+      {{- if ne .Values.mongodb_host_label "" }}
       io.rancher.scheduler.affinity:host_label: ${mongodb_host_label}
-    {{- end}}
+      {{- end}}
     logging:
       driver: "json-file"
       options:
@@ -44,6 +45,7 @@ services:
       - graylog-elasticsearch-volume:/usr/share/elasticsearch/data
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
       {{- if ne .Values.elasticsearch_host_label "" }}
       io.rancher.scheduler.affinity:host_label: ${elasticsearch_host_label}
       {{- end}}
@@ -68,6 +70,7 @@ services:
     tty: true
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
       {{- if ne .Values.kopf_host_label "" }}
       io.rancher.scheduler.affinity:host_label: ${kopf_host_label}
       {{- end}}
@@ -88,6 +91,7 @@ services:
       GRAYLOG_ROOT_PASSWORD_SHA2: ${graylog_password}
       GRAYLOG_WEB_ENDPOINT_URI: "${graylog_url}"
     labels:
+      io.rancher.container.hostname_override: container_name
       io.rancher.sidekicks: geoip-data
       {{- if ne .Values.graylog_server_host_label "" }}
       io.rancher.scheduler.affinity:host_label: ${graylog_server_host_label}
@@ -133,6 +137,7 @@ services:
       {{- end}}
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
     logging:
       driver: "json-file"
       options:
@@ -152,6 +157,7 @@ services:
     links:
       - graylog:graylog
     labels:
+      io.rancher.container.hostname_override: container_name
       io.rancher.container.pull_image: always
       io.rancher.scheduler.global: 'true'
     logging:
