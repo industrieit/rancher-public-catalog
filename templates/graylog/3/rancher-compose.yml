@@ -66,8 +66,8 @@
     - variable: enable_logspout
       label: Logspout Setup
       description: Run a service for logspout to send container logs to Graylog.
-      default: true
-      required: false
+      default: false
+      required: true
       type: boolean
     - variable: https_proxy
       description: "Only required if you need a proxy to access the internet"
