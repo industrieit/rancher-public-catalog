@@ -39,12 +39,6 @@
       required: false
       default: "graylog=true"
       type: string
-    - variable: elasticsearch_port
-      label: "Public port for Kopf (Elasticsearch) to bind to"
-      description: "Leave empty if you're going to add a Rancher Load Balancer in front of Kopf (Elasticsearch)."
-      required: false
-      default: ""
-      type: string
     - variable: elasticsearch_host_label
       label: Elasticsearch Host Label
       description: Host label for scheduling of the Elasticsearch service.  Leave empty for no host affinity.
@@ -57,9 +51,9 @@
       required: false
       default: "graylog=true"
       type: string
-    - variable: kopf_host_label
-      label: kopf Host Label
-      description: Host label (soft affinity) for scheduling of the kopf service.  Leave empty for no host affinity.
+    - variable: cerebro_host_label
+      label: Cerebro Host Label
+      description: Host label (soft affinity) for scheduling of the cerebro service.  Leave empty for no host affinity.
       required: false
       default: "graylog=true"
       type: string
@@ -99,5 +93,8 @@ services:
     scale: 1
     start_on_create: true
   mongo:
+    scale: 1
+    start_on_create: true
+  cerebro:
     scale: 1
     start_on_create: true

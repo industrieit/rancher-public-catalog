@@ -42,7 +42,11 @@ services:
         soft: -1
         hard: -1
     volumes:
+      {{- if eq .Values.volume_type "named"}}
       - graylog-elasticsearch-volume:/usr/share/elasticsearch/data
+      {{- else}}
+      - ${volume_mnt_src}/elasticsearch/data:/usr/share/elasticsearch/data
+      {{- end}}
     labels:
       io.rancher.container.pull_image: always
       io.rancher.container.hostname_override: container_name
@@ -55,24 +59,17 @@ services:
       options:
         max-size: "100M"
         max-file: "5"
-  kopf:
-    image: lmenezes/elasticsearch-kopf:2.1.2
-    environment:
-      KOPF_ES_SERVERS: elasticsearch:9200
-      KOPF_SERVER_NAME: _
+  cerebro:
+    image: yannart/cerebro:0.7.2
     links:
       - elasticsearch:elasticsearch
-    {{- if ne .Values.elasticsearch_port "" }}
-    ports:
-      - ${elasticsearch_port}:80
-    {{- end}}
     stdin_open: true
     tty: true
     labels:
       io.rancher.container.pull_image: always
       io.rancher.container.hostname_override: container_name
-      {{- if ne .Values.kopf_host_label "" }}
-      io.rancher.scheduler.affinity:host_label: ${kopf_host_label}
+      {{- if ne .Values.cerebro_host_label "" }}
+      io.rancher.scheduler.affinity:host_label: ${cerebro_host_label}
       {{- end}}
     logging:
       driver: "json-file"
@@ -99,9 +96,9 @@ services:
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     volumes:
       {{- if eq .Values.volume_type "named"}}
-      - graylog-journal-volume:/usr/share/graylog/data/journal
+      - graylog-journal-volume:/usr/share/graylog/data
       {{- else}}
-      - ${volume_mnt_src}/graylog/data/journal:/usr/share/graylog/data/journal
+      - ${volume_mnt_src}/graylog/data:/usr/share/graylog/data
       {{- end}}
     volumes_from:
       - geoip-data
