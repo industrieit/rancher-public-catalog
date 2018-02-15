@@ -96,9 +96,11 @@ services:
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     volumes:
       {{- if eq .Values.volume_type "named"}}
-      - graylog-journal-volume:/usr/share/graylog/data
+      - graylog-journal-volume:/usr/share/graylog/data/journal
+      - graylog-config-volume:/graylog/config:/usr/share/graylog/data/config
       {{- else}}
-      - ${volume_mnt_src}/graylog/data:/usr/share/graylog/data
+      - ${volume_mnt_src}/graylog/data/journal:/usr/share/graylog/data/journal
+      - ${volume_mnt_src}/graylog/config:/usr/share/graylog/data/config
       {{- end}}
     volumes_from:
       - geoip-data
