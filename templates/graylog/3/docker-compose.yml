@@ -44,8 +44,10 @@ services:
     volumes:
       {{- if eq .Values.volume_type "named"}}
       - graylog-elasticsearch-volume:/usr/share/elasticsearch/data
+      - graylog-es-snapshot-volume:/mnt/snapshot/elasticsearch
       {{- else}}
       - ${volume_mnt_src}/elasticsearch/data:/usr/share/elasticsearch/data
+      - /mnt/snapshot/elasticsearch:/mnt/snapshot/elasticsearch
       {{- end}}
     labels:
       io.rancher.container.pull_image: always
