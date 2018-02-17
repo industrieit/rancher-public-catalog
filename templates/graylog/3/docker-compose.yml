@@ -90,6 +90,7 @@ services:
       GRAYLOG_ROOT_PASSWORD_SHA2: ${graylog_password}
       GRAYLOG_WEB_ENDPOINT_URI: "${graylog_url}"
     labels:
+      io.rancher.container.pull_image: always
       io.rancher.container.hostname_override: container_name
       io.rancher.sidekicks: geoip-data
       {{- if ne .Values.graylog_server_host_label "" }}
