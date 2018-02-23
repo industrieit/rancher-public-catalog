@@ -1,7 +1,7 @@
 version: 2
 catalog:
   name: Drone
-  version: 0.8.2-ico-1.0
+  version: 0.8.2-ico-10601
   upgrade_from: 0.8.2-rancher1
   description: |
     Drone CI Server ref http://readme.drone.io/admin/installation-guide/
