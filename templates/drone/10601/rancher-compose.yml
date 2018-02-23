@@ -15,7 +15,7 @@ catalog:
       label: Drone Server Host Port
       description: Public port that will be exposed on service creation.
       required: true
-      default: 8000
+      default: 80
       type: int
     - variable: agent_scale
       label: Drone Agent Scale
@@ -42,7 +42,7 @@ catalog:
       description: |
         Users self register. http://readme.drone.io/admin/user-registration/
       required: true
-      default: true
+      default: false
       type: enum
       options:
         - true
@@ -60,8 +60,8 @@ catalog:
     - variable: "drone_driver"
       type: "enum"
       required: true
-      label: "Remote Driver"
-      default: "GitHub"
+      label: "Source Control Manager Type"
+      default: "Bitbucket Server"
       description: "Remote Git and Auth scheme. ref http://readme.drone.io/admin"
       options:
         - GitHub
@@ -70,35 +70,35 @@ catalog:
         - Bitbucket Cloud
         - Bitbucket Server
     - variable: drone_driver_client
-      label: Remote Driver Client
-      description: "Client key from remote driver. Required for GitHub, Bitbucket Cloud, Bitbucket Server and GitLab."
+      label: Client Key for Source Control
+      description: "Client key from source control. Required for GitHub, Bitbucket Cloud, Bitbucket Server and GitLab."
       type: string
-      required: false
+      required: true
     - variable: drone_driver_secret
-      label: Remote Driver Secret
-      description: "Secret key from remote driver. Required for GitHub, Bitbucket Cloud, Bitbucket Server and GitLab."
+      label: Private Key
+      description: "Private key from source control. Required for GitHub, Bitbucket Cloud, Bitbucket Server and GitLab."
       type: multiline
-      required: false
+      required: true
     - variable: drone_driver_url
-      label: Remote Driver URL
-      description: "Remote Driver server url. Required for GitLab, Gogs and Bitbucket Server; see http://readme.drone.io/admin."
+      label: Source Control URL
+      description: "Source control url. Required for GitLab, Gogs and Bitbucket Server; see http://readme.drone.io/admin."
       type: string
-      required: false
+      required: true
     - variable: drone_driver_user
-      label: Remote Driver Username
-      description: "Remote Driver username. Required for BitBucket Server; see http://docs.drone.io/install-for-bitbucket-server/."
+      label: Source Control Username
+      description: "Source control username. Required for BitBucket Server; see http://docs.drone.io/install-for-bitbucket-server/."
       type: string
-      required: false
+      required: true
     - variable: drone_driver_password
-      label: Remote Driver Password
-      description: "Remote Driver password. Required for BitBucket Server, http://docs.drone.io/install-for-bitbucket-server/."
+      label: Source Control Password
+      description: "Source control password. Required for BitBucket Server, http://docs.drone.io/install-for-bitbucket-server/."
       type: password
-      required: false
+      required: true
     - variable: drone_server
       label: Drone Server
-      description: "Drone sever identifier. Used by the agent to connect to the server (does not require change)."
+      description: "Drone rancher service identifier. This must match the Rancher service/stack name. eg <service>.<stack>"
       type: string
-      default: "drone:9000"
+      default: "server.drone:9000"
     - variable: drone_version
       label: Drone Version
       description: "Drone version/Docker tag used for the Drone container images."
@@ -114,7 +114,7 @@ catalog:
       label: Database Driver
       description: "Database driver. If sqlite, additional volume would be mounted at /var/lib/drone."
       type: enum
-      default: "sqlite"
+      default: "mysql"
       options:
         - "sqlite"
         - "mysql"
@@ -140,7 +140,7 @@ catalog:
       label: No Proxy
       description: "Optional: No proxy hosts (comma-separated hostnames/IPs)."
       required: false
-      default: "drone"
+      default: "server.drone"
     - variable: "drone_debug"
       label: Drone Debug
       description: "Enable debug output with the Drone server."
@@ -154,6 +154,18 @@ catalog:
       description: Host label (soft affinity) for scheduling of the load balancer service.
       required: true
       default: "drone_lb=true"
+      type: string
+    - variable: drone_agent_host_label
+      label: Drone Agent Host Label
+      description: Host label (soft affinity) for scheduling of the drone agent service.
+      required: true
+      default: "drone_agent=true"
+      type: string
+    - variable: drone_server_host_label
+      label: Drone Server Host Label
+      description: Host label (soft affinity) for scheduling of the drone server service.
+      required: true
+      default: "drone_server=true"
       type: string
 services:
   agent:

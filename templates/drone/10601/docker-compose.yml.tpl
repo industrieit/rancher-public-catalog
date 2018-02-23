@@ -26,6 +26,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.affinity:host_label_soft: ${drone_agent_host_label}
   server:
     image: drone/drone:${drone_version}
     environment:
@@ -89,6 +90,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.affinity:host_label_soft: ${drone_lb_server_label}
 {{- if eq .Values.database_driver "sqlite"}}
       io.rancher.sidekicks: server-volume
     volumes_from:
