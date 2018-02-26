@@ -142,6 +142,24 @@ catalog:
       label: "No Proxy Settings"
       required: false
       type: "string"
+    - variable: SERVER_HOST_LABEL
+      label: GoCD Server Host Label
+      description: Host label (soft affinity) for scheduling of the GoCD server service.  Leave empty for no host affinity.
+      required: false
+      default: "gocd=true"
+      type: string
+    - variable: AGENT_HOST_LABEL
+      label: GoCD Agent Host Label
+      description: Host label (soft affinity) for scheduling of the GoCD agent service.  Leave empty for no host affinity.
+      required: false
+      default: "gocd=true"
+      type: string
+    - variable: LB_HOST_LABEL
+      label: GoCD LB Host Label
+      description: Host label (soft affinity) for scheduling of the GoCD LB service.  Leave empty for no host affinity.
+      required: false
+      default: "gocd=true"
+      type: string
 
 services:
   gocd-agent:

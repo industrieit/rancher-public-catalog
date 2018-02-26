@@ -48,6 +48,9 @@ services:
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
+      {{- if ne .Values.SERVER_HOST_LABEL "" }}
+      io.rancher.scheduler.affinity:host_label: ${SERVER_HOST_LABEL}
+      {{- end}}
     {{- if eq .Values.DEPLOY_LB "true"}}
   lb:
     image: rancher/lb-service-haproxy:v0.6.2
@@ -63,6 +66,9 @@ services:
     labels:
       io.rancher.container.agent.role: environmentAdmin
       io.rancher.container.create_agent: 'true'
+      {{- if ne .Values.LB_HOST_LABEL "" }}
+      io.rancher.scheduler.affinity:host_label: ${LB_HOST_LABEL}
+      {{- end}}
     {{- end}}
   {{- end}}
   {{- if eq .Values.DEPLOY_AGENT "true"}}
@@ -96,6 +102,9 @@ services:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
       io.rancher.sidekicks: rancher-cattle-metadata,docker-engine
+      {{- if ne .Values.AGENT_HOST_LABEL "" }}
+      io.rancher.scheduler.affinity:host_label: ${AGENT_HOST_LABEL}
+      {{- end}}
   rancher-cattle-metadata:
     network_mode: none
     labels:
