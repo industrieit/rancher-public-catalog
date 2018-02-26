@@ -18,7 +18,7 @@ services:
       - CONFD_BACKEND=${CONFD_BACKEND}
       - CONFD_NODES=${CONFD_NODES}
       - CONFD_PREFIX_KEY=${CONFD_PREFIX}
-      {{- if eq .Values.PROXY}}
+      {{- if eq .Values.PROXY "true"}}
       - HTTP_PROXY=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - NO_PROXY=${NO_PROXY}
@@ -81,7 +81,7 @@ services:
       - GOCD_CONFIG_agent_key=${GOCD_AGENT_KEY}
       - GOCD_CONFIG_agent_resource_docker=${GOCD_AGENT_RESOURCE}
       - DOCKER_HOST=docker-engine:2375
-      {{- if eq .Values.PROXY}}
+      {{- if eq .Values.PROXY "true"}}
       - HTTP_PROXY=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - NO_PROXY=${NO_PROXY}
