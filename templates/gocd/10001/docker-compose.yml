@@ -51,7 +51,9 @@ services:
       {{- if ne .Values.SERVER_HOST_LABEL "" }}
       io.rancher.scheduler.affinity:host_label: ${SERVER_HOST_LABEL}
       {{- end}}
-    {{- if eq .Values.DEPLOY_LB "true"}}
+  {{- end}}
+
+  {{- if eq .Values.DEPLOY_LB "true"}}
   lb:
     image: rancher/lb-service-haproxy:v0.6.2
       {{- if (.Values.PUBLISH_PORT)}}
@@ -69,8 +71,8 @@ services:
       {{- if ne .Values.LB_HOST_LABEL "" }}
       io.rancher.scheduler.affinity:host_label: ${LB_HOST_LABEL}
       {{- end}}
-    {{- end}}
   {{- end}}
+
   {{- if eq .Values.DEPLOY_AGENT "true"}}
   gocd-agent:
     tty: true
