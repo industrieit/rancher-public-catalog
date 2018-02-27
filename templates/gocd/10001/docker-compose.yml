@@ -21,7 +21,10 @@ services:
       {{- if eq .Values.PROXY "true"}}
       - http_proxy=${HTTP_PROXY}
       - https_proxy=${HTTPS_PROXY}
-      - no_proxyY=${NO_PROXY}
+      - no_proxy=${NO_PROXY}
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - NO_PROXY=${NO_PROXY}
       {{- end}}
       {{- if eq .Values.GOCD_AGENT_PACKAGE "true"}}
       - GOCD_PLUGIN_script-executor=https://github.com/gocd-contrib/script-executor-task/releases/download/0.3/script-executor-0.3.0.jar
@@ -93,6 +96,9 @@ services:
       - http_proxy=${HTTP_PROXY}
       - https_proxy=${HTTPS_PROXY}
       - no_proxy=${NO_PROXY}
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - NO_PROXY=${NO_PROXY}
       {{- end}}
     {{- if eq .Values.DEPLOY_SERVER "true"}}
     links:
