@@ -1,0 +1,6 @@
+version: '2'
+services:
+  gocd-agent:
+    scale: 1
+  gocd-server:
+    scale: 1
