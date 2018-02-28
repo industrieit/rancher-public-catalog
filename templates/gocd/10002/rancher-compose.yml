@@ -15,7 +15,7 @@ catalog:
       label: "Agent key"
       required: true
       type: "string"
-    - variable: "SERVER_SYSYEM_PROPERTIES"
+    - variable: "SERVER_SYSTEM_PROPERTIES"
       description: "System properties in the form of Java parameters. eg -Xmx1024m -Dfoo=bar"
       label: "Server System Properties"
       type: "string"
