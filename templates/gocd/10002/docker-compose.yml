@@ -7,30 +7,48 @@ services:
       - /mnt/data/gocd/godata:/godata
       - /mnt/data/gocd/home/go:/home/go
     environment:
-      - GO_SERVER_SYSTEM_PROPERTIES=-Xmx2048m
-      - http_proxy=http://azspris21.tb.ahlad.priv:3128/
-      - https_proxy=http://azspris21.tb.ahlad.priv:3128/
-      - no_proxy=localhost,rancher.aussie.com.au,drone.aussie.com.au
+      - GO_SERVER_SYSTEM_PROPERTIES=${SERVER_SYSTEM_PROPERTIES}
+      {{- if eq .Values.PROXY "true"}}
+      - http_proxy=${HTTP_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - no_proxy=${NO_PROXY}
+      {{- end}}
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
-      io.rancher.scheduler.affinity:host_label: "gocd-2=true"
+      {{- if ne .Values.SERVER_HOST_LABEL ""}}
+      io.rancher.scheduler.affinity:host_label: ${SERVER_HOST_LABEL}
+      {{- end}}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+        max-file: "5"
 
   gocd-agent:
     tty: true
     image: gocd/gocd-agent-alpine-3.5:v17.3.0
     environment:
-      - GO_AGENT_SYSTEM_PROPERTIES=-Xmx1024m
+      - GO_AGENT_SYSTEM_PROPERTIES=${AGENT_SYSTEM_PROPERTIES}
       - GO_SERVER_URL=https://gocd-server:8154/go
-      - AGENT_AUTO_REGISTER_KEY=a4bc7def9edf0e
+      - AGENT_AUTO_REGISTER_KEY=${AGENT_KEY}
       - AGENT_AUTO_REGISTER_RESOURCES=
       - AGENT_AUTO_REGISTER_ENVIRONMENTS=
       - AGENT_AUTO_REGISTER_HOSTNAME=
-      - http_proxy=http://azspris21.tb.ahlad.priv:3128/
-      - https_proxy=http://azspris21.tb.ahlad.priv:3128/
-      - no_proxy=localhost,rancher.aussie.com.au,drone.aussie.com.au
+      {{- if eq .Values.PROXY "true"}}
+      - http_proxy=${HTTP_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - no_proxy=${NO_PROXY}
+      {{- end}}
     links:
       - gocd-server:gocd-server
     labels:
       io.rancher.container.hostname_override: container_name
-      io.rancher.scheduler.affinity:host_label: "gocd-2=true"
+      {{- if ne .Values.AGENT_HOST_LABEL ""}}
+      io.rancher.scheduler.affinity:host_label: ${AGENT_HOST_LABEL}
+      {{- end}}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+        max-file: "5"
