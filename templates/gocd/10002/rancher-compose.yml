@@ -1,5 +1,5 @@
 version: '2'
-atalog:
+catalog:
   name: GoCD
   version: 17.3.0-ico-10002
   minimum_rancher_version: v1.5.0
@@ -27,6 +27,12 @@ atalog:
       type: "string"
       required: true
       default: "-Xmx1048m"
+    - variable: "SERVER_MOUNT_POINT"
+      description: "Mount point for bind mounted volume. All GoCD data is written under directory gocd on this mount."
+      label: "Server Data Disk Host Mount Point"
+      type: "string"
+      required: true
+      default: "/mnt/data"
     - variable: PROXY
       description: "If GoCD needs to access the outside world via a proxy select true."
       label: "Proxy Required?"
