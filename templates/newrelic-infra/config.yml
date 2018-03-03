@@ -1,0 +1,6 @@
+name: New Relic Infra
+description: New Relic agent for Infrastructure
+category: Monitoring
+maintainer: Martin Rowe <martin.rowe@industrie.co>
+license: MIT
+projectURl: "https://hub.docker.com/r/newrelic/infrastructure/"

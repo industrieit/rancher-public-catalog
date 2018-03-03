@@ -1,0 +1,26 @@
+version: '2'
+catalog:
+  name: "newrelic"
+  version: "0.0.16"
+  questions:
+    - variable: "LICENCE_KEY"
+      label: "New Relic Licence Key"
+      description: "Licence key provided by New Relic."
+      required: true
+      type: "string"
+    - variable: "GLOBAL_SERVICE"
+      label: "Run service globally?"
+      description: "Always run one instance of this service on every host.  Set false to allow manual/other scaling"
+      required: true
+      type: "boolean"
+      default: "true"
+    - variable: "AFFINITY_HOST_LABEL"
+      label: "Host Affinity"
+      description: "Control the hosts on which the agent runs. Will run globally if left blank."
+      required: false
+      type: "string"
+      default: "newrelic-infra=true"
+services:
+  agent-infra:
+    scale: 1
+    start_on_create: true

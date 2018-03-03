@@ -1,0 +1,24 @@
+version: '2'
+services:
+  agent-infra:
+    image: newrelic/infrastructure:0.0.16
+    environment:
+      NRIA_LICENSE_KEY: ${LICENCE_KEY}
+    network_mode: "host"
+    cap_add:
+      - SYS_PTRACE
+    volumes:
+      - /:/host:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: ${GLOBAL_SERVICE}
+      io.rancher.container.hostname_override: container_name
+      {{- if (.Values.AFFINITY_HOST_LABEL)}}
+      io.rancher.scheduler.affinity:host_label: ${AFFINITY_HOST_LABEL}
+      {{- end}}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+        max-file: "5"
