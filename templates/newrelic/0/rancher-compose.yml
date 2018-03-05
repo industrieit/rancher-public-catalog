@@ -42,8 +42,8 @@ catalog:
       required: false
       type: "string"
     - variable: NRIA_CUSTOM_ATTRIBUTES
-      description: 'Leave blank if no custome attributes, otherwise of form {"attribute1":"value1", "attribute2":"value2"}'
-      label: "No Proxy Settings"
+      description: 'Leave blank if no custom attributes, otherwise of form {"attribute1":"value1", "attribute2":"value2"}'
+      label: "Custom Attributes"
       required: false
       type: "string"
 services:
