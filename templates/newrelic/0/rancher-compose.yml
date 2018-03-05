@@ -20,6 +20,12 @@ catalog:
       required: false
       type: "string"
       default: "newrelic-infra=true"
+    - variable: PROXY
+      description: "If New Relic needs to access the outside world via a proxy select true."
+      label: "Proxy Required?"
+      required: true
+      type: boolean
+      default: "false"
     - variable: HTTP_PROXY
       description: "Leave blank if proxy is not required, otherwise set http proxy URL eg http://<proxy>:<port>/"
       label: "HTTP Proxy URL"
