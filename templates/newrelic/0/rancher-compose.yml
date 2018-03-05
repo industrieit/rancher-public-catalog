@@ -20,6 +20,21 @@ catalog:
       required: false
       type: "string"
       default: "newrelic-infra=true"
+    - variable: HTTP_PROXY
+      description: "Leave blank if proxy is not required, otherwise set http proxy URL eg http://<proxy>:<port>/"
+      label: "HTTP Proxy URL"
+      required: false
+      type: "string"
+    - variable: HTTPS_PROXY
+      description: "Leave blank if proxy is not required, otherwise set https proxy URL eg https://<proxy>:<port>/"
+      label: "HTTPS Proxy URL"
+      required: false
+      type: "string"
+    - variable: NO_PROXY
+      description: "Leave blank if proxy is not required, otherwise set no proxy domains eg 127.0.0.1,localhost,test.domain.com"
+      label: "No Proxy Settings"
+      required: false
+      type: "string"
 services:
   agent-infra:
     scale: 1

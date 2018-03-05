@@ -4,6 +4,11 @@ services:
     image: newrelic/infrastructure:0.0.16
     environment:
       NRIA_LICENSE_KEY: ${LICENCE_KEY}
+      {{- if eq .Values.PROXY "true"}}
+      - http_proxy=${HTTP_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - no_proxy=${NO_PROXY}
+      {{- end}}
     network_mode: "host"
     cap_add:
       - SYS_PTRACE
