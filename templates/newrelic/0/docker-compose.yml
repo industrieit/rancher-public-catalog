@@ -3,8 +3,8 @@ services:
   agent-infra:
     image: newrelic/infrastructure:0.0.16
     environment:
-      - NRIA_LICENSE_KEY="${NRIA_LICENSE_KEY}"
-      - NRIA_CUSTOM_ATTRIBUTES="${NRIA_CUSTOM_ATTRIBUTES}"
+      - NRIA_LICENSE_KEY=${NRIA_LICENSE_KEY}
+      - NRIA_CUSTOM_ATTRIBUTES=${NRIA_CUSTOM_ATTRIBUTES}
       {{- if eq .Values.PROXY "true"}}
       - http_proxy=${HTTP_PROXY}
       - https_proxy=${HTTPS_PROXY}
