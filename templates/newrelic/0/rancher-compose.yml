@@ -3,7 +3,7 @@ catalog:
   name: "newrelic"
   version: "0.0.16"
   questions:
-    - variable: "LICENCE_KEY"
+    - variable: "NRIA_LICENCE_KEY"
       label: "New Relic Licence Key"
       description: "Licence key provided by New Relic."
       required: true
@@ -38,6 +38,11 @@ catalog:
       type: "string"
     - variable: NO_PROXY
       description: "Leave blank if proxy is not required, otherwise set no proxy domains eg 127.0.0.1,localhost,test.domain.com"
+      label: "No Proxy Settings"
+      required: false
+      type: "string"
+    - variable: NRIA_CUSTOM_ATTRIBUTES
+      description: 'Leave blank if no custome attributes, otherwise of form {"attribute1":"value1", "attribute2":"value2"}'
       label: "No Proxy Settings"
       required: false
       type: "string"
