@@ -3,14 +3,14 @@ services:
   agent-infra:
     image: newrelic/infrastructure:0.0.16
     environment:
-      - NRIA_LICENSE_KEY=${NRIA_LICENSE_KEY}
-      - NRIA_CUSTOM_ATTRIBUTES=${NRIA_CUSTOM_ATTRIBUTES}
+      NRIA_LICENSE_KEY: ${NRIA_LICENSE_KEY}
+      NRIA_CUSTOM_ATTRIBUTES: ${NRIA_CUSTOM_ATTRIBUTES}
       {{- if eq .Values.PROXY "true"}}
-      - http_proxy=${HTTP_PROXY}
-      - https_proxy=${HTTPS_PROXY}
-      - no_proxy=${NO_PROXY}
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTPS_PROXY}
+      no_proxy: ${NO_PROXY}
       {{- end}}
-    network_mode: "host"
+    network_mode: host
     cap_add:
       - SYS_PTRACE
     volumes:
@@ -24,7 +24,7 @@ services:
       io.rancher.scheduler.affinity:host_label: ${AFFINITY_HOST_LABEL}
       {{- end}}
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "100M"
-        max-file: "5"
+        max-size: 100M
+        max-file: '5'
