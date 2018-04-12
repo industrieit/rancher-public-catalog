@@ -18,6 +18,7 @@
     label: Rancher Secret Key
     description: The Rancher secret key for the environment being monitored.
     type: string
+    required: true
   - variable: AFFINITY_HOST_LABEL
     label: Host Affinity
     description: Control the hosts on which the agent runs. Will run globally if left blank.
