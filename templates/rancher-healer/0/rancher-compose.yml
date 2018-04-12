@@ -1,0 +1,25 @@
+.catalog:
+  name: "Rancher Healer"
+  version: "1.0.0"
+  description: "Healer of all things Rancher"
+  minimum_rancher_version: "1.6.0"
+  questions:
+  - variable: RANCHER_URL
+    label: Rancher URL
+    description: The Rancher API URL, for example http://rancher.your.domain/v2-beta
+    type: string
+    required: true
+  - variable: RANCHER_ACCESS_KEY
+    label: Rancher Access Key
+    description: The Rancher access key for the environment being monitored.
+    type: string
+    required: true
+  - variable: RANCHER_SECRET_KEY
+    label: Rancher Secret Key
+    description: The Rancher secret key for the environment being monitored.
+    type: string
+  - variable: AFFINITY_HOST_LABEL
+    label: Host Affinity
+    description: Control the hosts on which the agent runs. Will run globally if left blank.
+    type: string
+    default: rancher-healer=true

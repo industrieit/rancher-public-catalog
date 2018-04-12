@@ -1,0 +1,20 @@
+version: '2'
+services:
+  agent:
+    image: industrieco/rancher-healer:1.0.0
+    environment:
+      RANCHER_URL=${RANCHER_URL}
+      RANCHER_SECRET_KEY=${RANCHER_SECRET_KEY}
+      RANCHER_ACCESS_KEY=${RANCHER_ACCESS_KEY}
+    labels:
+      io.rancher.scheduler.global: 'false'
+      io.rancher.container.hostname_override: 'true'
+      io.rancher.container.pull_image: always
+      {{- if (.Values.AFFINITY_HOST_LABEL)}}
+      io.rancher.scheduler.affinity:host_label: ${AFFINITY_HOST_LABEL}
+      {{- end}}
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
+        max-file: '4'

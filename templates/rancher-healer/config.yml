@@ -1,0 +1,6 @@
+name: Rancher Healer
+description: |
+   Heals Rancher!
+version: 1.0.0
+category: Monitoring
+maintainer: martin.rowe@industrie.co
