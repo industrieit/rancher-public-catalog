@@ -3,9 +3,9 @@ services:
   agent:
     image: industrieco/rancher-healer:1.0.0
     environment:
-      RANCHER_URL=${RANCHER_URL}
-      RANCHER_SECRET_KEY=${RANCHER_SECRET_KEY}
-      RANCHER_ACCESS_KEY=${RANCHER_ACCESS_KEY}
+      RANCHER_URL: ${RANCHER_URL}
+      RANCHER_SECRET_KEY: ${RANCHER_SECRET_KEY}
+      RANCHER_ACCESS_KEY: ${RANCHER_ACCESS_KEY}
     labels:
       io.rancher.scheduler.global: 'false'
       io.rancher.container.hostname_override: 'true'
