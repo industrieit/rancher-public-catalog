@@ -15,3 +15,7 @@ This catalog item installs a simple Alpine based container that runs a Bash scri
 See the following repo for the Docker container;
 
 https://hub.docker.com/r/industrieco/rancher-healer/
+
+and this for the source;
+
+https://github.com/industrieco/docker-rancher-healer
