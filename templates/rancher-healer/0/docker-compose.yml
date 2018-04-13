@@ -2,6 +2,8 @@ version: '2'
 services:
   agent:
     image: industrieco/rancher-healer:1.0.0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       RANCHER_URL: ${RANCHER_URL}
       RANCHER_SECRET_KEY: ${RANCHER_SECRET_KEY}
