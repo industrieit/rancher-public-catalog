@@ -28,3 +28,5 @@ services:
       options:
         max-size: 100M
         max-file: '5'
+    security_opt:
+      - apparmor:unconfined
