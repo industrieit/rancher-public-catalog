@@ -108,7 +108,6 @@ services:
       io.rancher.container.start_once: 'true'
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
-      io.rancher.scheduler.affinity:host_label_soft: ${drone_server_host_label}
 {{- end}}
   lb:
     image: rancher/lb-service-haproxy:v0.7.15
